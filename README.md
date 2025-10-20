@@ -60,18 +60,23 @@ python -m src init-db --db data/fcc_tm.sqlite
 ### 3) Generate synthetic data
 python -m src generate --db data/fcc_tm.sqlite --n-customers 1500 --n-externals 1000 --n-accounts 1300 --n-transactions 200000 --seed 42
 
+### Directory Layout
 
-## Directory Layout
-
-src/
-  __main__.py         # entry: python -m src
-  cli.py              # CLI commands
-  db.py               # SQLite schema (create_db)
-  gen.py              # data generators & inserters
-.github/workflows/
-  ci.yml              # cross-OS smoke test (init + generate + basic checks)
-data/
-  fcc_tm.sqlite       # created at runtime
+```text
+FCC-Synthetic-TM/
+├─ src/
+│  ├─ __main__.py         # entry: python -m src
+│  ├─ cli.py              # CLI commands
+│  ├─ db.py               # SQLite schema (create_db)
+│  └─ gen.py              # data generators & inserters
+├─ .github/
+│  └─ workflows/
+│     └─ ci.yml           # CI smoke test (init + generate + checks)
+├─ data/                  # runtime artifacts
+│  └─ fcc_tm.sqlite       # created by init-db/generate
+├─ README.md
+├─ pyproject.toml
+├─ LICENSE```
   
 ## Ethics 
 
