@@ -60,6 +60,10 @@ python -m src init-db --db data/fcc_tm.sqlite
 ### 3) Generate synthetic data
 python -m src generate --db data/fcc_tm.sqlite --n-customers 1500 --n-externals 1000 --n-accounts 1300 --n-transactions 200000 --seed 42
 
+## Ethics 
+
+100% synthetic data + not guidance for evasion. No affiliation with any FI or vendor.
+
 ### Directory Layout
 
 ```text
@@ -76,8 +80,4 @@ FCC-Synthetic-TM/
 │  └─ fcc_tm.sqlite       # created by init-db/generate
 ├─ README.md
 ├─ pyproject.toml
-├─ LICENSE```
-  
-## Ethics 
-
-100% synthetic data + not guidance for evasion. No affiliation with any FI or vendor.
+├─ LICENSE
