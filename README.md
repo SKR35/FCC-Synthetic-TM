@@ -73,6 +73,6 @@ src/
 data/
   fcc_tm.sqlite       # created at runtime
   
-##Ethics 
+## Ethics 
 
 100% synthetic data + not guidance for evasion. No affiliation with any FI or vendor.
