@@ -35,7 +35,10 @@ def main():
             n_tx=args.n_transactions,
             seed=args.seed,
         )
-        print(f"Generated: {stats['customers']} customers "
-              f"| {stats['accounts']} accounts "
-              f"| {stats['transactions']} transactions "
-              f"| {stats['alerts']} alerts → {args.db}")
+        print("Generated: {customers} customers | {accounts} accounts | "
+        "{transactions} transactions | {alerts} alerts -> {db}".format(
+        customers=stats['customers'],
+        accounts=stats['accounts'],
+        transactions=stats['transactions'],
+        alerts=stats['alerts'],
+        db=args.db))
