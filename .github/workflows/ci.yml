@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  smoke:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.11"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Init DB
+        run: python -m src init-db --db data/fcc_tm.sqlite
+
+      - name: Generate sample data
+        run: python -m src generate --db data/fcc_tm.sqlite --n-customers 50 --n-externals 30 --n-accounts 60 --n-transactions 1000 --seed 7
+
+      - name: Verify counts & FKs
+        run: |
+          python - <<'PY'
+          import sqlite3
+          c = sqlite3.connect("data/fcc_tm.sqlite")
+          def cnt(t): return c.execute(f"select count(*) from {t}").fetchone()[0]
+          counts = {t: cnt(t) for t in ["customers","accounts","cash_transactions","alerts"]}
+          print("counts:", counts)
+          # orphan account check
+          bad = c.execute("""
+            select count(*) from cash_transactions t
+            left join accounts a on a.account_id=t.account_id
+            where a.account_id is null
+          """).fetchone()[0]
+          print("orphan_tx_accounts:", bad)
+          assert counts["customers"]>0 and counts["accounts"]>0 and counts["cash_transactions"]>0
+          assert bad == 0
+          c.close()
+          PY
+
+      - name: Upload sample DB (artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sample-db-${{ matrix.os }}
+          path: data/fcc_tm.sqlite
