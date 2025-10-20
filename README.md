@@ -50,6 +50,7 @@ alerts (alert_id PK) → references {transaction | account | customer} by (entit
 ### 1) Create environment
 
 conda create -n fcc_tm python=3.11 -y
+
 conda activate fcc_tm
 
 ### 2) Initialize the SQLite schema
