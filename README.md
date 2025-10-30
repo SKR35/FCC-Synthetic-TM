@@ -55,11 +55,14 @@ conda activate fcc_tm
 ~~~
 
 ### 2) Initialize the SQLite schema
-
+~~~bash
 python -m src init-db --db data/fcc_tm.sqlite
+~~~
 
 ### 3) Generate synthetic data
+~~~bash
 python -m src generate --db data/fcc_tm.sqlite --n-customers 1500 --n-externals 1000 --n-accounts 1300 --n-transactions 200000 --seed 42
+~~~
 
 ## Ethics 
 
@@ -67,7 +70,7 @@ python -m src generate --db data/fcc_tm.sqlite --n-customers 1500 --n-externals 
 
 ### Directory Layout
 
-```text
+~~~text
 FCC-Synthetic-TM/
 ├─ src/
 │  ├─ __main__.py         # entry: python -m src
@@ -82,3 +85,4 @@ FCC-Synthetic-TM/
 ├─ README.md
 ├─ pyproject.toml
 ├─ LICENSE
+~~~
